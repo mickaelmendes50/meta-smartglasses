@@ -50,7 +50,8 @@ class MainActivity : ComponentActivity() {
   // Requesting wearable device permissions via the Meta AI app
   private val permissionsResultLauncher =
       registerForActivityResult(Wearables.RequestPermissionContract()) { result ->
-        permissionContinuation?.resume(result)
+        val permissionStatus = result.getOrDefault(PermissionStatus.Denied)
+        permissionContinuation?.resume(permissionStatus)
         permissionContinuation = null
       }
 

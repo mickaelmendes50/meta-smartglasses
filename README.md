@@ -24,8 +24,9 @@ A sample Android application demonstrating integration with Meta Wearables Devic
 
 1. Clone this repository
 1. Open the project in Android Studio
-1. Wait for the project to sync
-1. Click the "Build" menu and select "Build Bundle(s) / APK(s)" > "Build APK(s)"
+1. Add your personal access token (classic) to the `local.properties` file (see [SDK for Android setup](https://wearables.developer.meta.com/docs/getting-started-toolkit/#sdk-for-android-setup))
+1. Click **File** > **Sync Project with Gradle Files**
+1. Click **Run** > **Run...** > **app**
 
 ## Running the app
 

@@ -13,7 +13,6 @@
 package com.meta.wearable.dat.externalsampleapps.cameraaccess.ui
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,6 +22,8 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,10 +45,18 @@ fun HomeScreen(
     viewModel: WearablesViewModel,
     modifier: Modifier = Modifier,
 ) {
-  Box(
-      modifier = modifier.fillMaxSize().padding(all = 24.dp),
-      contentAlignment = Alignment.Center,
+  val scrollState = rememberScrollState()
+  Column(
+      modifier =
+          modifier
+              .fillMaxSize()
+              .verticalScroll(scrollState)
+              .padding(all = 24.dp)
+              .navigationBarsPadding(),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.spacedBy(24.dp),
   ) {
+    Spacer(modifier = Modifier.weight(1f))
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -79,9 +88,9 @@ fun HomeScreen(
         )
       }
     }
+    Spacer(modifier = Modifier.weight(1f))
 
     Column(
-        modifier = Modifier.align(Alignment.BottomCenter),
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
       // App Registration Button
@@ -94,7 +103,6 @@ fun HomeScreen(
       SwitchButton(
           label = stringResource(R.string.register_button_title),
           onClick = { viewModel.startRegistration() },
-          modifier = Modifier.navigationBarsPadding(),
       )
     }
   }

@@ -40,7 +40,6 @@ import com.meta.wearable.dat.camera.types.StreamSessionState
 import com.meta.wearable.dat.camera.types.VideoFrame
 import com.meta.wearable.dat.camera.types.VideoQuality
 import com.meta.wearable.dat.core.Wearables
-import com.meta.wearable.dat.core.selectors.AutoDeviceSelector
 import com.meta.wearable.dat.core.selectors.DeviceSelector
 import com.meta.wearable.dat.externalsampleapps.cameraaccess.wearables.WearablesViewModel
 import java.io.ByteArrayInputStream
@@ -65,8 +64,7 @@ class StreamViewModel(
     private val INITIAL_STATE = StreamUiState()
   }
 
-  // AutoDeviceSelector automatically selects the first available wearable device
-  private val deviceSelector: DeviceSelector = AutoDeviceSelector()
+  private val deviceSelector: DeviceSelector = wearablesViewModel.deviceSelector
   private var streamSession: StreamSession? = null
 
   private val _uiState = MutableStateFlow(INITIAL_STATE)
@@ -144,8 +142,33 @@ class StreamViewModel(
   }
 
   fun capturePhoto() {
+    if (uiState.value.isCapturing) {
+      Log.d(TAG, "Photo capture already in progress, ignoring request")
+      return
+    }
+
     if (uiState.value.streamSessionState == StreamSessionState.STREAMING) {
-      viewModelScope.launch { streamSession?.capturePhoto()?.onSuccess { handlePhotoData(it) } }
+      Log.d(TAG, "Starting photo capture")
+      _uiState.update { it.copy(isCapturing = true) }
+
+      viewModelScope.launch {
+        streamSession
+            ?.capturePhoto()
+            ?.onSuccess { photoData ->
+              Log.d(TAG, "Photo capture successful")
+              handlePhotoData(photoData)
+              _uiState.update { it.copy(isCapturing = false) }
+            }
+            ?.onFailure {
+              Log.e(TAG, "Photo capture failed")
+              _uiState.update { it.copy(isCapturing = false) }
+            }
+      }
+    } else {
+      Log.w(
+          TAG,
+          "Cannot capture photo: stream not active (state=${uiState.value.streamSessionState})",
+      )
     }
   }
 

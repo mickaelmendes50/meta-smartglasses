@@ -57,6 +57,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
+import com.meta.wearable.dat.core.types.RegistrationState
 import com.meta.wearable.dat.externalsampleapps.cameraaccess.R
 import com.meta.wearable.dat.externalsampleapps.cameraaccess.wearables.WearablesViewModel
 import kotlinx.coroutines.launch
@@ -69,9 +70,10 @@ fun NonStreamScreen(
     modifier: Modifier = Modifier,
 ) {
   val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-  val gettingStartedSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
+  val gettingStartedSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
   val scope = rememberCoroutineScope()
   var dropdownExpanded by remember { mutableStateOf(false) }
+  val isDisconnectEnabled = uiState.registrationState is RegistrationState.Registered
 
   MaterialTheme(colorScheme = darkColorScheme()) {
     Box(
@@ -96,9 +98,10 @@ fun NonStreamScreen(
               text = {
                 Text(
                     stringResource(R.string.unregister_button_title),
-                    color = AppColor.Red,
+                    color = if (isDisconnectEnabled) AppColor.Red else Color.Gray,
                 )
               },
+              enabled = isDisconnectEnabled,
               onClick = {
                 viewModel.startUnregistration()
                 dropdownExpanded = false
@@ -132,13 +135,37 @@ fun NonStreamScreen(
         )
       }
 
-      // Start Streaming Button
-      SwitchButton(
-          label = stringResource(R.string.stream_button_title),
-          onClick = { viewModel.navigateToStreaming(onRequestWearablesPermission) },
-          enabled = uiState.devices.isNotEmpty(),
+      Column(
           modifier = Modifier.align(Alignment.BottomCenter).navigationBarsPadding(),
-      )
+          horizontalAlignment = Alignment.CenterHorizontally,
+      ) {
+        if (!uiState.hasActiveDevice) {
+          Row(
+              horizontalArrangement = Arrangement.spacedBy(8.dp),
+              verticalAlignment = Alignment.CenterVertically,
+              modifier = Modifier.padding(bottom = 12.dp),
+          ) {
+            Icon(
+                painter = painterResource(id = R.drawable.hourglass_icon),
+                contentDescription = "Waiting for device",
+                tint = Color.White.copy(alpha = 0.7f),
+                modifier = Modifier.size(16.dp),
+            )
+            Text(
+                text = stringResource(R.string.waiting_for_active_device),
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.White.copy(alpha = 0.7f),
+            )
+          }
+        }
+
+        // Start Streaming Button
+        SwitchButton(
+            label = stringResource(R.string.stream_button_title),
+            onClick = { viewModel.navigateToStreaming(onRequestWearablesPermission) },
+            enabled = uiState.hasActiveDevice,
+        )
+      }
 
       // Getting Started Sheet
       if (uiState.isGettingStartedSheetVisible) {
