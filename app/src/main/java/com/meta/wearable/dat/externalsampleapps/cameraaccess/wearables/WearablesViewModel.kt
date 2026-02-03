@@ -16,6 +16,7 @@
 
 package com.meta.wearable.dat.externalsampleapps.cameraaccess.wearables
 
+import android.app.Activity
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -115,12 +116,12 @@ class WearablesViewModel(application: Application) : AndroidViewModel(applicatio
     }
   }
 
-  fun startRegistration() {
-    Wearables.startRegistration(getApplication())
+  fun startRegistration(activity: Activity) {
+    Wearables.startRegistration(activity)
   }
 
-  fun startUnregistration() {
-    Wearables.startUnregistration(getApplication())
+  fun startUnregistration(activity: Activity) {
+    Wearables.startUnregistration(activity)
   }
 
   fun navigateToStreaming(onRequestWearablesPermission: suspend (Permission) -> PermissionStatus) {

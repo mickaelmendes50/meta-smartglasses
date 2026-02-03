@@ -70,41 +70,10 @@ class StreamViewModel(
   private val _uiState = MutableStateFlow(INITIAL_STATE)
   val uiState: StateFlow<StreamUiState> = _uiState.asStateFlow()
 
-  private val streamTimer = StreamTimer()
-
   private var videoJob: Job? = null
   private var stateJob: Job? = null
-  private var timerJob: Job? = null
-
-  init {
-    // Collect timer state
-    timerJob =
-        viewModelScope.launch {
-          launch {
-            streamTimer.timerMode.collect { mode -> _uiState.update { it.copy(timerMode = mode) } }
-          }
-
-          launch {
-            streamTimer.remainingTimeSeconds.collect { seconds ->
-              _uiState.update { it.copy(remainingTimeSeconds = seconds) }
-            }
-          }
-
-          launch {
-            streamTimer.isTimerExpired.collect { expired ->
-              if (expired) {
-                // Stop streaming and navigate back
-                stopStream()
-                wearablesViewModel.navigateToDeviceSelection()
-              }
-            }
-          }
-        }
-  }
 
   fun startStream() {
-    resetTimer()
-    streamTimer.startTimer()
     videoJob?.cancel()
     stateJob?.cancel()
     val streamSession =
@@ -137,7 +106,6 @@ class StreamViewModel(
     stateJob = null
     streamSession?.close()
     streamSession = null
-    streamTimer.stopTimer()
     _uiState.update { INITIAL_STATE }
   }
 
@@ -203,17 +171,6 @@ class StreamViewModel(
     } catch (e: IOException) {
       Log.e("StreamViewModel", "Failed to share photo", e)
     }
-  }
-
-  fun cycleTimerMode() {
-    streamTimer.cycleTimerMode()
-    if (_uiState.value.streamSessionState == StreamSessionState.STREAMING) {
-      streamTimer.startTimer()
-    }
-  }
-
-  fun resetTimer() {
-    streamTimer.resetTimer()
   }
 
   private fun handleVideoFrame(videoFrame: VideoFrame) {
@@ -354,8 +311,6 @@ class StreamViewModel(
     super.onCleared()
     stopStream()
     stateJob?.cancel()
-    timerJob?.cancel()
-    streamTimer.cleanup()
   }
 
   class Factory(

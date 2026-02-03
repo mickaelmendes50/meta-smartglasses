@@ -21,6 +21,4 @@ data class StreamUiState(
     val capturedPhoto: Bitmap? = null,
     val isShareDialogVisible: Boolean = false,
     val isCapturing: Boolean = false,
-    val timerMode: TimerMode = TimerMode.UNLIMITED,
-    val remainingTimeSeconds: Long? = null,
 )
