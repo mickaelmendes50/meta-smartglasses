@@ -70,7 +70,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import br.ufg.akcit.smartglasses.R
 import br.ufg.akcit.smartglasses.mockdevicekit.MockDeviceInfo
 import br.ufg.akcit.smartglasses.mockdevicekit.MockDeviceKitViewModel
-import br.ufg.akcit.smartglasses.ui.theme.AppColor
+import br.ufg.akcit.smartglasses.ui.theme.appColors
 import com.meta.wearable.dat.mockdevice.api.camera.CameraFacing
 
 @Composable
@@ -112,7 +112,7 @@ fun MockDeviceKitScreen(
                             uiState.pairedDevices.size
                         ),
                         style = MaterialTheme.typography.bodyMedium,
-                        color = AppColor.Green,
+                        color = MaterialTheme.appColors.success,
                         textAlign = TextAlign.Center,
                     )
                 }
@@ -135,7 +135,7 @@ fun MockDeviceKitScreen(
                         modifier = Modifier.fillMaxWidth(),
                         text = stringResource(R.string.enable_mock_device_kit),
                         onClick = { viewModel.enable() },
-                        containerColor = AppColor.Green,
+                        containerColor = MaterialTheme.appColors.success,
                     )
                 }
 
@@ -298,7 +298,7 @@ private fun MockDeviceCard(
                                         deviceInfo
                                     )
                                 },
-                                colors = SwitchDefaults.colors(checkedTrackColor = AppColor.Green),
+                                colors = SwitchDefaults.colors(checkedTrackColor = MaterialTheme.appColors.success),
                             )
                         }
 
@@ -321,7 +321,7 @@ private fun MockDeviceCard(
                                         deviceInfo
                                     )
                                 },
-                                colors = SwitchDefaults.colors(checkedTrackColor = AppColor.Green),
+                                colors = SwitchDefaults.colors(checkedTrackColor = MaterialTheme.appColors.success),
                             )
                         }
 
@@ -344,7 +344,7 @@ private fun MockDeviceCard(
                                         deviceInfo
                                     )
                                 },
-                                colors = SwitchDefaults.colors(checkedTrackColor = AppColor.Green),
+                                colors = SwitchDefaults.colors(checkedTrackColor = MaterialTheme.appColors.success),
                             )
                         }
                     }
@@ -369,7 +369,7 @@ private fun MockDeviceCard(
                             Text(
                                 text = stringResource(R.string.has_captured_image),
                                 style = MaterialTheme.typography.bodySmall,
-                                color = AppColor.Green,
+                                color = MaterialTheme.appColors.success,
                             )
                         }
                         ActionButton(

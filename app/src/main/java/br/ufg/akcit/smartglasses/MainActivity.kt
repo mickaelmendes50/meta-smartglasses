@@ -27,17 +27,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.activity.viewModels
-import com.meta.wearable.dat.core.Wearables
-import com.meta.wearable.dat.core.types.Permission
-import com.meta.wearable.dat.core.types.PermissionStatus
 import br.ufg.akcit.smartglasses.ui.MainContainer
 import br.ufg.akcit.smartglasses.ui.theme.SmartGlassesTheme
 import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
-import kotlin.coroutines.resume
+import com.meta.wearable.dat.core.Wearables
+import com.meta.wearable.dat.core.types.Permission
+import com.meta.wearable.dat.core.types.PermissionStatus
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlin.coroutines.resume
 
 class MainActivity : ComponentActivity() {
   companion object {

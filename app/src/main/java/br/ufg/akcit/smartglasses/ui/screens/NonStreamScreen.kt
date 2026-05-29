@@ -63,15 +63,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import br.ufg.akcit.smartglasses.R
 import br.ufg.akcit.smartglasses.ui.components.SwitchButton
-import br.ufg.akcit.smartglasses.ui.theme.AppColor
+import br.ufg.akcit.smartglasses.ui.theme.appColors
 import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
 import com.meta.wearable.dat.core.types.RegistrationState
 import kotlinx.coroutines.launch
-
-private val UpdateRequiredBackground = Color(0xFFFFF4D6)
-private val UpdateRequiredForeground = Color(0xFF8A4B00)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -271,7 +268,7 @@ private fun UpdateRequiredMessage(
             modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(20.dp))
-                .background(UpdateRequiredBackground)
+                .background(MaterialTheme.appColors.warningContainer)
                 .padding(16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.Top,
@@ -279,7 +276,7 @@ private fun UpdateRequiredMessage(
         Icon(
             imageVector = Icons.Default.Warning,
             contentDescription = null,
-            tint = UpdateRequiredForeground,
+            tint = MaterialTheme.appColors.onWarningContainer,
             modifier = Modifier.size(24.dp),
         )
         Column(
@@ -290,12 +287,12 @@ private fun UpdateRequiredMessage(
                 text = stringResource(R.string.update_required_title),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = UpdateRequiredForeground,
+                color = MaterialTheme.appColors.onWarningContainer,
             )
             Text(
                 text = message,
                 style = MaterialTheme.typography.bodyMedium,
-                color = UpdateRequiredForeground,
+                color = MaterialTheme.appColors.onWarningContainer,
             )
         }
     }

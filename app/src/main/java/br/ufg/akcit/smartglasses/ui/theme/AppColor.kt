@@ -9,4 +9,6 @@ object AppColor {
     val DeepBlue = Color(0xFF0064E0)
     val DestructiveBackground = Color(0xFFFFD8DB)
     val DestructiveForeground = Color(0xFFAA071E)
+    val UpdateRequiredBackground = Color(0xFFFFF4D6)
+    val UpdateRequiredForeground = Color(0xFF8A4B00)
 }
