@@ -65,7 +65,7 @@ import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
 import com.meta.wearable.dat.core.types.RegistrationState
 import br.ufg.akcit.smartglasses.R
-import br.ufg.akcit.smartglasses.ui.AppColor
+import br.ufg.akcit.smartglasses.ui.theme.AppColor
 import br.ufg.akcit.smartglasses.ui.components.SwitchButton
 import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 import kotlinx.coroutines.launch

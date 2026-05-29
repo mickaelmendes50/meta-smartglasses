@@ -70,7 +70,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import br.ufg.akcit.smartglasses.R
 import br.ufg.akcit.smartglasses.mockdevicekit.MockDeviceInfo
 import br.ufg.akcit.smartglasses.mockdevicekit.MockDeviceKitViewModel
-import br.ufg.akcit.smartglasses.ui.AppColor
+import br.ufg.akcit.smartglasses.ui.theme.AppColor
 import com.meta.wearable.dat.mockdevice.api.camera.CameraFacing
 
 @Composable
