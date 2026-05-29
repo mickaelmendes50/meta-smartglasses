@@ -65,7 +65,7 @@ import com.meta.wearable.dat.core.types.PermissionStatus
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CameraAccessScaffold(
+fun MainContainer(
     viewModel: WearablesViewModel,
     onRequestWearablesPermission: suspend (Permission) -> PermissionStatus,
     modifier: Modifier = Modifier,
