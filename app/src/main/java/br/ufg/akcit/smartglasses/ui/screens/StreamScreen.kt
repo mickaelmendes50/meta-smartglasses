@@ -11,7 +11,7 @@
 // This composable demonstrates the main streaming UI for DAT camera functionality. It shows how to
 // display live video from wearable devices and handle photo capture.
 
-package br.ufg.akcit.smartglasses.ui
+package br.ufg.akcit.smartglasses.ui.screens
 
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
@@ -40,6 +40,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.meta.wearable.dat.camera.types.StreamState
 import br.ufg.akcit.smartglasses.R
 import br.ufg.akcit.smartglasses.stream.StreamViewModel
+import br.ufg.akcit.smartglasses.ui.CaptureButton
+import br.ufg.akcit.smartglasses.ui.SharePhotoDialog
+import br.ufg.akcit.smartglasses.ui.SwitchButton
 import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 
 @Composable
@@ -91,31 +94,31 @@ fun StreamScreen(
         SwitchButton(
             label = stringResource(R.string.stop_stream_button_title),
             onClick = {
-              streamViewModel.stopStream()
-              wearablesViewModel.navigateToDeviceSelection()
+                streamViewModel.stopStream()
+                wearablesViewModel.navigateToDeviceSelection()
             },
             isDestructive = true,
             modifier = Modifier.weight(1f),
         )
 
         // Photo capture button
-        CaptureButton(
-            onClick = { streamViewModel.capturePhoto() },
-        )
+          CaptureButton(
+              onClick = { streamViewModel.capturePhoto() },
+          )
       }
     }
   }
 
   streamUiState.capturedPhoto?.let { photo ->
     if (streamUiState.isShareDialogVisible) {
-      SharePhotoDialog(
-          photo = photo,
-          onDismiss = { streamViewModel.hideShareDialog() },
-          onShare = { bitmap ->
-            streamViewModel.sharePhoto(bitmap)
-            streamViewModel.hideShareDialog()
-          },
-      )
+        SharePhotoDialog(
+            photo = photo,
+            onDismiss = { streamViewModel.hideShareDialog() },
+            onShare = { bitmap ->
+                streamViewModel.sharePhoto(bitmap)
+                streamViewModel.hideShareDialog()
+            },
+        )
     }
   }
 }

@@ -11,8 +11,9 @@
 // This screen allows developers to simulate wearable devices and test DAT functionality without
 // hardware.
 
-package br.ufg.akcit.smartglasses.ui
+package br.ufg.akcit.smartglasses.ui.screens
 
+import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
@@ -69,6 +70,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import br.ufg.akcit.smartglasses.R
 import br.ufg.akcit.smartglasses.mockdevicekit.MockDeviceInfo
 import br.ufg.akcit.smartglasses.mockdevicekit.MockDeviceKitViewModel
+import br.ufg.akcit.smartglasses.ui.AppColor
 import com.meta.wearable.dat.mockdevice.api.camera.CameraFacing
 
 @Composable
@@ -327,11 +329,11 @@ private fun MockDeviceCard(
               deviceInfo = deviceInfo,
               onFrontCamera = {
                 pendingCameraFacing = CameraFacing.FRONT
-                cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+                cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
               },
               onBackCamera = {
                 pendingCameraFacing = CameraFacing.BACK
-                cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+                cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
               },
               onVideoFile = { videoPickerLauncher.launch("video/*") },
           )

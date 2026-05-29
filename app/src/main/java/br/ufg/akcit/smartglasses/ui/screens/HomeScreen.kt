@@ -10,7 +10,7 @@
 //
 // This screen handles DAT device registration.
 
-package br.ufg.akcit.smartglasses.ui
+package br.ufg.akcit.smartglasses.ui.screens
 
 import android.widget.Toast
 import androidx.activity.compose.LocalActivity
@@ -43,6 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.ufg.akcit.smartglasses.R
+import br.ufg.akcit.smartglasses.ui.AppColor
+import br.ufg.akcit.smartglasses.ui.SwitchButton
 import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 
 @Composable
@@ -109,14 +111,14 @@ fun HomeScreen(
           textAlign = TextAlign.Center,
           modifier = Modifier.padding(horizontal = 24.dp),
       )
-      SwitchButton(
-          label = stringResource(R.string.register_button_title),
-          enabled = uiState.canStartRegistration,
-          onClick = {
-            activity?.let { viewModel.startRegistration(it) }
-                ?: Toast.makeText(context, "Activity not available", Toast.LENGTH_SHORT).show()
-          },
-      )
+        SwitchButton(
+            label = stringResource(R.string.register_button_title),
+            enabled = uiState.canStartRegistration,
+            onClick = {
+                activity?.let { viewModel.startRegistration(it) }
+                    ?: Toast.makeText(context, "Activity not available", Toast.LENGTH_SHORT).show()
+            },
+        )
     }
   }
 }

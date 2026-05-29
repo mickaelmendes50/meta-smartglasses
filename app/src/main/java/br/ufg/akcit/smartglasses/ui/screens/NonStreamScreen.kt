@@ -11,7 +11,7 @@
 // This screen demonstrates DAT device management and pre-streaming setup. It handles device
 // registration status, camera permissions, and stream readiness.
 
-package br.ufg.akcit.smartglasses.ui
+package br.ufg.akcit.smartglasses.ui.screens
 
 import android.widget.Toast
 import androidx.activity.compose.LocalActivity
@@ -65,6 +65,8 @@ import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
 import com.meta.wearable.dat.core.types.RegistrationState
 import br.ufg.akcit.smartglasses.R
+import br.ufg.akcit.smartglasses.ui.AppColor
+import br.ufg.akcit.smartglasses.ui.SwitchButton
 import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 import kotlinx.coroutines.launch
 
@@ -180,31 +182,33 @@ fun NonStreamScreen(
         }
 
         if (uiState.isFirmwareUpdateRequired) {
-          SwitchButton(
-              label = stringResource(R.string.update_firmware_button_title),
-              onClick = {
-                activity?.let { viewModel.openFirmwareUpdate(it) }
-                    ?: Toast.makeText(context, "Activity not available", Toast.LENGTH_SHORT).show()
-              },
-          )
+            SwitchButton(
+                label = stringResource(R.string.update_firmware_button_title),
+                onClick = {
+                    activity?.let { viewModel.openFirmwareUpdate(it) }
+                        ?: Toast.makeText(context, "Activity not available", Toast.LENGTH_SHORT)
+                            .show()
+                },
+            )
         }
 
         if (uiState.isDatAppUpdateRequired) {
-          SwitchButton(
-              label = stringResource(R.string.update_dat_app_button_title),
-              onClick = {
-                activity?.let { viewModel.openDATGlassesAppUpdate(it) }
-                    ?: Toast.makeText(context, "Activity not available", Toast.LENGTH_SHORT).show()
-              },
-          )
+            SwitchButton(
+                label = stringResource(R.string.update_dat_app_button_title),
+                onClick = {
+                    activity?.let { viewModel.openDATGlassesAppUpdate(it) }
+                        ?: Toast.makeText(context, "Activity not available", Toast.LENGTH_SHORT)
+                            .show()
+                },
+            )
         }
 
         // Start Streaming Button
-        SwitchButton(
-            label = stringResource(R.string.stream_button_title),
-            onClick = { viewModel.navigateToStreaming(onRequestWearablesPermission) },
-            enabled = uiState.hasActiveDevice && !isUpdateRequired,
-        )
+          SwitchButton(
+              label = stringResource(R.string.stream_button_title),
+              onClick = { viewModel.navigateToStreaming(onRequestWearablesPermission) },
+              enabled = uiState.hasActiveDevice && !isUpdateRequired,
+          )
       }
 
       // Getting Started Sheet
@@ -308,11 +312,11 @@ private fun GettingStartedSheetContent(onContinue: () -> Unit, modifier: Modifie
       )
     }
 
-    SwitchButton(
-        label = stringResource(R.string.getting_started_continue),
-        onClick = onContinue,
-        modifier = Modifier.navigationBarsPadding(),
-    )
+      SwitchButton(
+          label = stringResource(R.string.getting_started_continue),
+          onClick = onContinue,
+          modifier = Modifier.navigationBarsPadding(),
+      )
   }
 }
 

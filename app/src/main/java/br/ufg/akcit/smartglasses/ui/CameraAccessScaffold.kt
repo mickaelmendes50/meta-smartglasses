@@ -57,6 +57,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
 import br.ufg.akcit.smartglasses.BuildConfig
+import br.ufg.akcit.smartglasses.ui.screens.HomeScreen
+import br.ufg.akcit.smartglasses.ui.screens.MockDeviceKitScreen
+import br.ufg.akcit.smartglasses.ui.screens.NonStreamScreen
+import br.ufg.akcit.smartglasses.ui.screens.StreamScreen
 import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -135,7 +139,7 @@ fun CameraAccessScaffold(
               sheetState = bottomSheetState,
               modifier = Modifier.fillMaxSize(),
           ) {
-            MockDeviceKitScreen(modifier = Modifier.fillMaxSize())
+              MockDeviceKitScreen(modifier = Modifier.fillMaxSize())
           }
         }
       }
