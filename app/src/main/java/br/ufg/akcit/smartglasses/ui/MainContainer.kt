@@ -70,79 +70,82 @@ fun CameraAccessScaffold(
     onRequestWearablesPermission: suspend (Permission) -> PermissionStatus,
     modifier: Modifier = Modifier,
 ) {
-  val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-  val snackbarHostState = remember { SnackbarHostState() }
-  val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-  // Observe recent errors and show snackbar
-  LaunchedEffect(uiState.recentError) {
-    uiState.recentError?.let { errorMessage ->
-      snackbarHostState.showSnackbar(errorMessage)
-      viewModel.clearRecentError()
+    // Observe recent errors and show snackbar
+    LaunchedEffect(uiState.recentError) {
+        uiState.recentError?.let { errorMessage ->
+            snackbarHostState.showSnackbar(errorMessage)
+            viewModel.clearRecentError()
+        }
     }
-  }
 
-  Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-    Box(modifier = Modifier.fillMaxSize()) {
-      when {
-        uiState.isStreaming ->
-            StreamScreen(
-                wearablesViewModel = viewModel,
-            )
-        uiState.isRegistered ->
-            AppNavigation(
-                viewModel = viewModel,
-                onRequestWearablesPermission = onRequestWearablesPermission,
-            )
-        else ->
-            HomeScreen(
-                viewModel = viewModel,
-            )
-      }
+    Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            when {
+                uiState.isStreaming ->
+                    StreamScreen(
+                        wearablesViewModel = viewModel,
+                    )
 
-      SnackbarHost(
-          hostState = snackbarHostState,
-          modifier =
-              Modifier.align(Alignment.BottomCenter)
-                  .navigationBarsPadding()
-                  .padding(horizontal = 16.dp, vertical = 32.dp),
-          snackbar = { data ->
-            Snackbar(
-                shape = RoundedCornerShape(24.dp),
-                containerColor = MaterialTheme.colorScheme.errorContainer,
-                contentColor = MaterialTheme.colorScheme.onErrorContainer,
-            ) {
-              Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Default.Error,
-                    contentDescription = "Camera Access error",
-                    tint = MaterialTheme.colorScheme.error,
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(data.visuals.message)
-              }
+                uiState.isRegistered ->
+                    AppNavigation(
+                        viewModel = viewModel,
+                        onRequestWearablesPermission = onRequestWearablesPermission,
+                    )
+
+                else ->
+                    HomeScreen(
+                        viewModel = viewModel,
+                    )
             }
-          },
-      )
 
-      if (BuildConfig.DEBUG) {
-        FloatingActionButton(
-            onClick = { viewModel.showDebugMenu() },
-            modifier = Modifier.align(Alignment.CenterEnd),
-        ) {
-          Icon(Icons.Default.BugReport, contentDescription = "Debug Menu")
-        }
+            SnackbarHost(
+                hostState = snackbarHostState,
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomCenter)
+                        .navigationBarsPadding()
+                        .padding(horizontal = 16.dp, vertical = 32.dp),
+                snackbar = { data ->
+                    Snackbar(
+                        shape = RoundedCornerShape(24.dp),
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Default.Error,
+                                contentDescription = "Camera Access error",
+                                tint = MaterialTheme.colorScheme.error,
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(data.visuals.message)
+                        }
+                    }
+                },
+            )
 
-        if (uiState.isDebugMenuVisible) {
-          ModalBottomSheet(
-              onDismissRequest = { viewModel.hideDebugMenu() },
-              sheetState = bottomSheetState,
-              modifier = Modifier.fillMaxSize(),
-          ) {
-              MockDeviceKitScreen(modifier = Modifier.fillMaxSize())
-          }
+            if (BuildConfig.DEBUG) {
+                FloatingActionButton(
+                    onClick = { viewModel.showDebugMenu() },
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                ) {
+                    Icon(Icons.Default.BugReport, contentDescription = "Debug Menu")
+                }
+
+                if (uiState.isDebugMenuVisible) {
+                    ModalBottomSheet(
+                        onDismissRequest = { viewModel.hideDebugMenu() },
+                        sheetState = bottomSheetState,
+                        modifier = Modifier.fillMaxSize(),
+                    ) {
+                        MockDeviceKitScreen(modifier = Modifier.fillMaxSize())
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }

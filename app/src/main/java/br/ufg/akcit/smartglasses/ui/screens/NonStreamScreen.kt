@@ -82,155 +82,174 @@ fun NonStreamScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
 ) {
-  val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-  val gettingStartedSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-  val scope = rememberCoroutineScope()
-  var dropdownExpanded by remember { mutableStateOf(false) }
-  val isDisconnectEnabled = uiState.registrationState == RegistrationState.REGISTERED
-  val isUpdateRequired = uiState.isFirmwareUpdateRequired || uiState.isDatAppUpdateRequired
-  val activity = LocalActivity.current
-  val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val gettingStartedSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val scope = rememberCoroutineScope()
+    var dropdownExpanded by remember { mutableStateOf(false) }
+    val isDisconnectEnabled = uiState.registrationState == RegistrationState.REGISTERED
+    val isUpdateRequired = uiState.isFirmwareUpdateRequired || uiState.isDatAppUpdateRequired
+    val activity = LocalActivity.current
+    val context = LocalContext.current
 
-  MaterialTheme(colorScheme = darkColorScheme()) {
-    Box(
-        modifier = modifier.fillMaxSize().background(Color.Black).padding(all = 24.dp),
-        contentAlignment = Alignment.Center,
-    ) {
-      Box(modifier = Modifier.align(Alignment.TopEnd).systemBarsPadding()) {
-        IconButton(onClick = { dropdownExpanded = true }) {
-          Icon(
-              imageVector = Icons.Default.LinkOff,
-              contentDescription = "DisconnectIcon",
-              tint = Color.White,
-              modifier = Modifier.size(28.dp),
-          )
-        }
-
-        DropdownMenu(
-            expanded = dropdownExpanded,
-            onDismissRequest = { dropdownExpanded = false },
+    MaterialTheme(colorScheme = darkColorScheme()) {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .background(Color.Black)
+                .padding(all = 24.dp),
+            contentAlignment = Alignment.Center,
         ) {
-          DropdownMenuItem(
-              text = {
-                Text(
-                    stringResource(R.string.unregister_button_title),
-                    color = if (isDisconnectEnabled) AppColor.Red else Color.Gray,
-                )
-              },
-              enabled = isDisconnectEnabled,
-              onClick = {
-                activity?.let { viewModel.startUnregistration(it) }
-                    ?: Toast.makeText(context, "Activity not available", Toast.LENGTH_SHORT).show()
-                dropdownExpanded = false
-              },
-              modifier = Modifier.height(30.dp),
-          )
-        }
-      }
-
-      Column(
-          horizontalAlignment = Alignment.CenterHorizontally,
-          verticalArrangement = Arrangement.spacedBy(8.dp),
-      ) {
-        Icon(
-            painter = painterResource(id = R.drawable.camera_access_icon),
-            contentDescription = stringResource(R.string.camera_access_icon_description),
-            tint = Color.White,
-            modifier = Modifier.size(80.dp * LocalDensity.current.density),
-        )
-        Text(
-            text = stringResource(R.string.non_stream_screen_title),
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            color = Color.White,
-        )
-        Text(
-            text = stringResource(R.string.non_stream_screen_description),
-            textAlign = TextAlign.Center,
-            color = Color.White,
-        )
-      }
-
-      Column(
-          modifier = Modifier.align(Alignment.BottomCenter).navigationBarsPadding(),
-          horizontalAlignment = Alignment.CenterHorizontally,
-          verticalArrangement = Arrangement.spacedBy(12.dp),
-      ) {
-        if (!uiState.hasActiveDevice) {
-          Row(
-              horizontalArrangement = Arrangement.spacedBy(8.dp),
-              verticalAlignment = Alignment.CenterVertically,
-          ) {
-            Icon(
-                painter = painterResource(id = R.drawable.hourglass_icon),
-                contentDescription = "Waiting for device",
-                tint = Color.White.copy(alpha = 0.7f),
-                modifier = Modifier.size(16.dp),
-            )
-            Text(
-                text = stringResource(R.string.waiting_for_active_device),
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.White.copy(alpha = 0.7f),
-            )
-          }
-        }
-
-        if (isUpdateRequired) {
-          UpdateRequiredMessage(
-              showFirmwareUpdate = uiState.isFirmwareUpdateRequired,
-              showDatAppUpdate = uiState.isDatAppUpdateRequired,
-          )
-        }
-
-        if (uiState.isFirmwareUpdateRequired) {
-            SwitchButton(
-                label = stringResource(R.string.update_firmware_button_title),
-                onClick = {
-                    activity?.let { viewModel.openFirmwareUpdate(it) }
-                        ?: Toast.makeText(context, "Activity not available", Toast.LENGTH_SHORT)
-                            .show()
-                },
-            )
-        }
-
-        if (uiState.isDatAppUpdateRequired) {
-            SwitchButton(
-                label = stringResource(R.string.update_dat_app_button_title),
-                onClick = {
-                    activity?.let { viewModel.openDATGlassesAppUpdate(it) }
-                        ?: Toast.makeText(context, "Activity not available", Toast.LENGTH_SHORT)
-                            .show()
-                },
-            )
-        }
-
-        // Start Streaming Button
-          SwitchButton(
-              label = stringResource(R.string.stream_button_title),
-              onClick = { viewModel.navigateToStreaming(onRequestWearablesPermission) },
-              enabled = uiState.hasActiveDevice && !isUpdateRequired,
-          )
-      }
-
-      // Getting Started Sheet
-      if (uiState.isGettingStartedSheetVisible) {
-        ModalBottomSheet(
-            onDismissRequest = { viewModel.hideGettingStartedSheet() },
-            sheetState = gettingStartedSheetState,
-        ) {
-          GettingStartedSheetContent(
-              onContinue = {
-                scope.launch {
-                  gettingStartedSheetState.hide()
-                  viewModel.hideGettingStartedSheet()
+            Box(modifier = Modifier
+                .align(Alignment.TopEnd)
+                .systemBarsPadding()) {
+                IconButton(onClick = { dropdownExpanded = true }) {
+                    Icon(
+                        imageVector = Icons.Default.LinkOff,
+                        contentDescription = "DisconnectIcon",
+                        tint = Color.White,
+                        modifier = Modifier.size(28.dp),
+                    )
                 }
-              }
-          )
+
+                DropdownMenu(
+                    expanded = dropdownExpanded,
+                    onDismissRequest = { dropdownExpanded = false },
+                ) {
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                stringResource(R.string.unregister_button_title),
+                                color = if (isDisconnectEnabled) AppColor.Red else Color.Gray,
+                            )
+                        },
+                        enabled = isDisconnectEnabled,
+                        onClick = {
+                            activity?.let { viewModel.startUnregistration(it) }
+                                ?: Toast.makeText(
+                                    context,
+                                    "Activity not available",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            dropdownExpanded = false
+                        },
+                        modifier = Modifier.height(30.dp),
+                    )
+                }
+            }
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.camera_access_icon),
+                    contentDescription = stringResource(R.string.camera_access_icon_description),
+                    tint = Color.White,
+                    modifier = Modifier.size(80.dp * LocalDensity.current.density),
+                )
+                Text(
+                    text = stringResource(R.string.non_stream_screen_title),
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                )
+                Text(
+                    text = stringResource(R.string.non_stream_screen_description),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                )
+            }
+
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .navigationBarsPadding(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                if (!uiState.hasActiveDevice) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.hourglass_icon),
+                            contentDescription = "Waiting for device",
+                            tint = Color.White.copy(alpha = 0.7f),
+                            modifier = Modifier.size(16.dp),
+                        )
+                        Text(
+                            text = stringResource(R.string.waiting_for_active_device),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.White.copy(alpha = 0.7f),
+                        )
+                    }
+                }
+
+                if (isUpdateRequired) {
+                    UpdateRequiredMessage(
+                        showFirmwareUpdate = uiState.isFirmwareUpdateRequired,
+                        showDatAppUpdate = uiState.isDatAppUpdateRequired,
+                    )
+                }
+
+                if (uiState.isFirmwareUpdateRequired) {
+                    SwitchButton(
+                        label = stringResource(R.string.update_firmware_button_title),
+                        onClick = {
+                            activity?.let { viewModel.openFirmwareUpdate(it) }
+                                ?: Toast.makeText(
+                                    context,
+                                    "Activity not available",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                        },
+                    )
+                }
+
+                if (uiState.isDatAppUpdateRequired) {
+                    SwitchButton(
+                        label = stringResource(R.string.update_dat_app_button_title),
+                        onClick = {
+                            activity?.let { viewModel.openDATGlassesAppUpdate(it) }
+                                ?: Toast.makeText(
+                                    context,
+                                    "Activity not available",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                        },
+                    )
+                }
+
+                // Start Streaming Button
+                SwitchButton(
+                    label = stringResource(R.string.stream_button_title),
+                    onClick = { viewModel.navigateToStreaming(onRequestWearablesPermission) },
+                    enabled = uiState.hasActiveDevice && !isUpdateRequired,
+                )
+            }
+
+            // Getting Started Sheet
+            if (uiState.isGettingStartedSheetVisible) {
+                ModalBottomSheet(
+                    onDismissRequest = { viewModel.hideGettingStartedSheet() },
+                    sheetState = gettingStartedSheetState,
+                ) {
+                    GettingStartedSheetContent(
+                        onContinue = {
+                            scope.launch {
+                                gettingStartedSheetState.hide()
+                                viewModel.hideGettingStartedSheet()
+                            }
+                        }
+                    )
+                }
+            }
         }
-      }
     }
-  }
 }
 
 @Composable
@@ -239,98 +258,107 @@ private fun UpdateRequiredMessage(
     showDatAppUpdate: Boolean,
     modifier: Modifier = Modifier,
 ) {
-  val message =
-      when {
-        showFirmwareUpdate && showDatAppUpdate ->
-            stringResource(R.string.update_required_both_message)
-        showFirmwareUpdate -> stringResource(R.string.update_required_firmware_message)
-        else -> stringResource(R.string.update_required_dat_app_message)
-      }
+    val message =
+        when {
+            showFirmwareUpdate && showDatAppUpdate ->
+                stringResource(R.string.update_required_both_message)
 
-  Row(
-      modifier =
-          modifier
-              .fillMaxWidth()
-              .clip(RoundedCornerShape(20.dp))
-              .background(UpdateRequiredBackground)
-              .padding(16.dp),
-      horizontalArrangement = Arrangement.spacedBy(12.dp),
-      verticalAlignment = Alignment.Top,
-  ) {
-    Icon(
-        imageVector = Icons.Default.Warning,
-        contentDescription = null,
-        tint = UpdateRequiredForeground,
-        modifier = Modifier.size(24.dp),
-    )
-    Column(
-        modifier = Modifier.weight(1f),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+            showFirmwareUpdate -> stringResource(R.string.update_required_firmware_message)
+            else -> stringResource(R.string.update_required_dat_app_message)
+        }
+
+    Row(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(20.dp))
+                .background(UpdateRequiredBackground)
+                .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalAlignment = Alignment.Top,
     ) {
-      Text(
-          text = stringResource(R.string.update_required_title),
-          style = MaterialTheme.typography.titleMedium,
-          fontWeight = FontWeight.SemiBold,
-          color = UpdateRequiredForeground,
-      )
-      Text(
-          text = message,
-          style = MaterialTheme.typography.bodyMedium,
-          color = UpdateRequiredForeground,
-      )
+        Icon(
+            imageVector = Icons.Default.Warning,
+            contentDescription = null,
+            tint = UpdateRequiredForeground,
+            modifier = Modifier.size(24.dp),
+        )
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.update_required_title),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = UpdateRequiredForeground,
+            )
+            Text(
+                text = message,
+                style = MaterialTheme.typography.bodyMedium,
+                color = UpdateRequiredForeground,
+            )
+        }
     }
-  }
 }
 
 @Composable
 private fun GettingStartedSheetContent(onContinue: () -> Unit, modifier: Modifier = Modifier) {
-  Column(
-      modifier = modifier.fillMaxWidth().padding(horizontal = 24.dp).padding(bottom = 24.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(24.dp),
-  ) {
-    Text(
-        text = stringResource(R.string.getting_started_title),
-        style = MaterialTheme.typography.titleLarge,
-        fontWeight = FontWeight.SemiBold,
-        textAlign = TextAlign.Center,
-    )
-
     Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier.fillMaxWidth().padding(8.dp).padding(bottom = 16.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp)
+            .padding(bottom = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
-      TipItem(
-          iconResId = R.drawable.video_icon,
-          text = stringResource(R.string.getting_started_tip_permission),
-      )
-      TipItem(
-          iconResId = R.drawable.tap_icon,
-          text = stringResource(R.string.getting_started_tip_photo),
-      )
-      TipItem(
-          iconResId = R.drawable.smart_glasses_icon,
-          text = stringResource(R.string.getting_started_tip_led),
-      )
-    }
+        Text(
+            text = stringResource(R.string.getting_started_title),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.SemiBold,
+            textAlign = TextAlign.Center,
+        )
 
-      SwitchButton(
-          label = stringResource(R.string.getting_started_continue),
-          onClick = onContinue,
-          modifier = Modifier.navigationBarsPadding(),
-      )
-  }
+        Column(
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .padding(bottom = 16.dp),
+        ) {
+            TipItem(
+                iconResId = R.drawable.video_icon,
+                text = stringResource(R.string.getting_started_tip_permission),
+            )
+            TipItem(
+                iconResId = R.drawable.tap_icon,
+                text = stringResource(R.string.getting_started_tip_photo),
+            )
+            TipItem(
+                iconResId = R.drawable.smart_glasses_icon,
+                text = stringResource(R.string.getting_started_tip_led),
+            )
+        }
+
+        SwitchButton(
+            label = stringResource(R.string.getting_started_continue),
+            onClick = onContinue,
+            modifier = Modifier.navigationBarsPadding(),
+        )
+    }
 }
 
 @Composable
 private fun TipItem(iconResId: Int, text: String, modifier: Modifier = Modifier) {
-  Row(modifier = modifier.fillMaxWidth()) {
-    Icon(
-        painter = painterResource(id = iconResId),
-        contentDescription = "Getting started tip icon",
-        modifier = Modifier.padding(start = 4.dp, top = 4.dp).width(24.dp),
-    )
-    Spacer(modifier = Modifier.width(10.dp))
-    Text(text = text)
-  }
+    Row(modifier = modifier.fillMaxWidth()) {
+        Icon(
+            painter = painterResource(id = iconResId),
+            contentDescription = "Getting started tip icon",
+            modifier = Modifier
+                .padding(start = 4.dp, top = 4.dp)
+                .width(24.dp),
+        )
+        Spacer(modifier = Modifier.width(10.dp))
+        Text(text = text)
+    }
 }

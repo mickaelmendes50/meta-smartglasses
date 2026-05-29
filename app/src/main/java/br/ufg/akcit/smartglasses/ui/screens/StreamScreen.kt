@@ -58,67 +58,70 @@ fun StreamScreen(
                 ),
         ),
 ) {
-  val streamUiState by streamViewModel.uiState.collectAsStateWithLifecycle()
+    val streamUiState by streamViewModel.uiState.collectAsStateWithLifecycle()
 
-  LaunchedEffect(Unit) { streamViewModel.startStream() }
+    LaunchedEffect(Unit) { streamViewModel.startStream() }
 
-  Box(modifier = modifier.fillMaxSize()) {
-    streamUiState.videoFrame?.let { videoFrame ->
-      // Use key() to force recomposition when frame counter changes,
-      // even if the bitmap reference is the same (due to caching optimization)
-      key(streamUiState.videoFrameCount) {
-        Image(
-            bitmap = videoFrame.asImageBitmap(),
-            contentDescription = stringResource(R.string.live_stream),
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
-        )
-      }
+    Box(modifier = modifier.fillMaxSize()) {
+        streamUiState.videoFrame?.let { videoFrame ->
+            // Use key() to force recomposition when frame counter changes,
+            // even if the bitmap reference is the same (due to caching optimization)
+            key(streamUiState.videoFrameCount) {
+                Image(
+                    bitmap = videoFrame.asImageBitmap(),
+                    contentDescription = stringResource(R.string.live_stream),
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop,
+                )
+            }
+        }
+        if (streamUiState.streamState == StreamState.STARTING) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center),
+            )
+        }
+
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(all = 24.dp)) {
+            Row(
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomCenter)
+                        .navigationBarsPadding()
+                        .fillMaxWidth()
+                        .height(56.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                SwitchButton(
+                    label = stringResource(R.string.stop_stream_button_title),
+                    onClick = {
+                        streamViewModel.stopStream()
+                        wearablesViewModel.navigateToDeviceSelection()
+                    },
+                    isDestructive = true,
+                    modifier = Modifier.weight(1f),
+                )
+
+                // Photo capture button
+                CaptureButton(
+                    onClick = { streamViewModel.capturePhoto() },
+                )
+            }
+        }
     }
-    if (streamUiState.streamState == StreamState.STARTING) {
-      CircularProgressIndicator(
-          modifier = Modifier.align(Alignment.Center),
-      )
-    }
 
-    Box(modifier = Modifier.fillMaxSize().padding(all = 24.dp)) {
-      Row(
-          modifier =
-              Modifier.align(Alignment.BottomCenter)
-                  .navigationBarsPadding()
-                  .fillMaxWidth()
-                  .height(56.dp),
-          horizontalArrangement = Arrangement.spacedBy(8.dp),
-          verticalAlignment = Alignment.CenterVertically,
-      ) {
-        SwitchButton(
-            label = stringResource(R.string.stop_stream_button_title),
-            onClick = {
-                streamViewModel.stopStream()
-                wearablesViewModel.navigateToDeviceSelection()
-            },
-            isDestructive = true,
-            modifier = Modifier.weight(1f),
-        )
-
-        // Photo capture button
-          CaptureButton(
-              onClick = { streamViewModel.capturePhoto() },
-          )
-      }
+    streamUiState.capturedPhoto?.let { photo ->
+        if (streamUiState.isShareDialogVisible) {
+            SharePhotoDialog(
+                photo = photo,
+                onDismiss = { streamViewModel.hideShareDialog() },
+                onShare = { bitmap ->
+                    streamViewModel.sharePhoto(bitmap)
+                    streamViewModel.hideShareDialog()
+                },
+            )
+        }
     }
-  }
-
-  streamUiState.capturedPhoto?.let { photo ->
-    if (streamUiState.isShareDialogVisible) {
-        SharePhotoDialog(
-            photo = photo,
-            onDismiss = { streamViewModel.hideShareDialog() },
-            onShare = { bitmap ->
-                streamViewModel.sharePhoto(bitmap)
-                streamViewModel.hideShareDialog()
-            },
-        )
-    }
-  }
 }

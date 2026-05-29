@@ -52,75 +52,78 @@ fun HomeScreen(
     viewModel: WearablesViewModel,
     modifier: Modifier = Modifier,
 ) {
-  val scrollState = rememberScrollState()
-  val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-  val activity = LocalActivity.current
-  val context = LocalContext.current
+    val scrollState = rememberScrollState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val activity = LocalActivity.current
+    val context = LocalContext.current
 
-  Column(
-      modifier =
-          modifier
-              .fillMaxSize()
-              .verticalScroll(scrollState)
-              .padding(all = 24.dp)
-              .navigationBarsPadding(),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(24.dp),
-  ) {
-    Spacer(modifier = Modifier.weight(1f))
     Column(
+        modifier =
+            modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(all = 24.dp)
+                .navigationBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
-      Icon(
-          painter = painterResource(id = R.drawable.camera_access_icon),
-          contentDescription = stringResource(R.string.camera_access_icon_description),
-          tint = AppColor.DeepBlue,
-          modifier = Modifier.size(80.dp * LocalDensity.current.density),
-      )
-      Column(
-          verticalArrangement = Arrangement.spacedBy(12.dp),
-          modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
-      ) {
-        TipItem(
-            iconResId = R.drawable.smart_glasses_icon,
-            title = stringResource(R.string.home_tip_video_title),
-            text = stringResource(R.string.home_tip_video),
-        )
-        TipItem(
-            iconResId = R.drawable.sound_icon,
-            title = stringResource(R.string.home_tip_audio_title),
-            text = stringResource(R.string.home_tip_audio),
-        )
-        TipItem(
-            iconResId = R.drawable.walking_icon,
-            title = stringResource(R.string.home_tip_hands_title),
-            text = stringResource(R.string.home_tip_hands),
-        )
-      }
-    }
-    Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.camera_access_icon),
+                contentDescription = stringResource(R.string.camera_access_icon_description),
+                tint = AppColor.DeepBlue,
+                modifier = Modifier.size(80.dp * LocalDensity.current.density),
+            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp),
+            ) {
+                TipItem(
+                    iconResId = R.drawable.smart_glasses_icon,
+                    title = stringResource(R.string.home_tip_video_title),
+                    text = stringResource(R.string.home_tip_video),
+                )
+                TipItem(
+                    iconResId = R.drawable.sound_icon,
+                    title = stringResource(R.string.home_tip_audio_title),
+                    text = stringResource(R.string.home_tip_audio),
+                )
+                TipItem(
+                    iconResId = R.drawable.walking_icon,
+                    title = stringResource(R.string.home_tip_hands_title),
+                    text = stringResource(R.string.home_tip_hands),
+                )
+            }
+        }
+        Spacer(modifier = Modifier.weight(1f))
 
-    Column(
-        verticalArrangement = Arrangement.spacedBy(20.dp),
-    ) {
-      // App Registration Button
-      Text(
-          text = stringResource(R.string.home_redirect_message),
-          color = Color.Gray,
-          textAlign = TextAlign.Center,
-          modifier = Modifier.padding(horizontal = 24.dp),
-      )
-        SwitchButton(
-            label = stringResource(R.string.register_button_title),
-            enabled = uiState.canStartRegistration,
-            onClick = {
-                activity?.let { viewModel.startRegistration(it) }
-                    ?: Toast.makeText(context, "Activity not available", Toast.LENGTH_SHORT).show()
-            },
-        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(20.dp),
+        ) {
+            // App Registration Button
+            Text(
+                text = stringResource(R.string.home_redirect_message),
+                color = Color.Gray,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 24.dp),
+            )
+            SwitchButton(
+                label = stringResource(R.string.register_button_title),
+                enabled = uiState.canStartRegistration,
+                onClick = {
+                    activity?.let { viewModel.startRegistration(it) }
+                        ?: Toast.makeText(context, "Activity not available", Toast.LENGTH_SHORT)
+                            .show()
+                },
+            )
+        }
     }
-  }
 }
 
 @Composable
@@ -130,22 +133,24 @@ private fun TipItem(
     text: String,
     modifier: Modifier = Modifier,
 ) {
-  Row(modifier = modifier.fillMaxWidth()) {
-    Icon(
-        painter = painterResource(id = iconResId),
-        contentDescription = "Tip icon",
-        modifier = Modifier.padding(start = 4.dp, top = 4.dp).width(24.dp),
-    )
-    Spacer(modifier = Modifier.width(12.dp))
-    Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-      Text(
-          text = title,
-          fontSize = 20.sp,
-          fontWeight = FontWeight.SemiBold,
-      )
-      Text(text = text, color = Color.Gray)
+    Row(modifier = modifier.fillMaxWidth()) {
+        Icon(
+            painter = painterResource(id = iconResId),
+            contentDescription = "Tip icon",
+            modifier = Modifier
+                .padding(start = 4.dp, top = 4.dp)
+                .width(24.dp),
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = title,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.SemiBold,
+            )
+            Text(text = text, color = Color.Gray)
+        }
     }
-  }
 }

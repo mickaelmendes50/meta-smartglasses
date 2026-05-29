@@ -27,19 +27,21 @@ fun SwitchButton(
     isDestructive: Boolean = false,
     enabled: Boolean = true,
 ) {
-  Button(
-      modifier = modifier.height(56.dp).fillMaxWidth(),
-      onClick = onClick,
-      colors =
-          ButtonDefaults.buttonColors(
-              containerColor =
-                  if (isDestructive) AppColor.DestructiveBackground else AppColor.DeepBlue,
-              disabledContainerColor = Color.Gray,
-              disabledContentColor = Color.DarkGray,
-              contentColor = if (isDestructive) AppColor.DestructiveForeground else Color.White,
-          ),
-      enabled = enabled,
-  ) {
-    Text(label)
-  }
+    Button(
+        modifier = modifier
+            .height(56.dp)
+            .fillMaxWidth(),
+        onClick = onClick,
+        colors =
+            ButtonDefaults.buttonColors(
+                containerColor =
+                    if (isDestructive) AppColor.DestructiveBackground else AppColor.DeepBlue,
+                disabledContainerColor = Color.Gray,
+                disabledContentColor = Color.DarkGray,
+                contentColor = if (isDestructive) AppColor.DestructiveForeground else Color.White,
+            ),
+        enabled = enabled,
+    ) {
+        Text(label)
+    }
 }

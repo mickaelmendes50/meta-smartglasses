@@ -30,23 +30,23 @@ fun CircleButton(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,
 ) {
-  Button(
-      modifier = modifier.aspectRatio(1f),
-      onClick = onClick,
-      colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-      shape = CircleShape,
-      contentPadding = PaddingValues(0.dp),
-      content = content,
-  )
+    Button(
+        modifier = modifier.aspectRatio(1f),
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+        shape = CircleShape,
+        contentPadding = PaddingValues(0.dp),
+        content = content,
+    )
 }
 
 @Composable
 fun CaptureButton(onClick: () -> Unit) {
-  CircleButton(onClick = onClick) {
-    Icon(
-        imageVector = Icons.Filled.PhotoCamera,
-        contentDescription = stringResource(R.string.capture_photo),
-        tint = Color.Black,
-    )
-  }
+    CircleButton(onClick = onClick) {
+        Icon(
+            imageVector = Icons.Filled.PhotoCamera,
+            contentDescription = stringResource(R.string.capture_photo),
+            tint = Color.Black,
+        )
+    }
 }

@@ -31,28 +31,34 @@ import br.ufg.akcit.smartglasses.R
 
 @Composable
 fun SharePhotoDialog(photo: Bitmap, onDismiss: () -> Unit, onShare: (Bitmap) -> Unit) {
-  Dialog(onDismissRequest = onDismiss) {
-    Card(
-        modifier = Modifier.fillMaxWidth(0.9f).wrapContentHeight(),
-        shape = RoundedCornerShape(16.dp),
-    ) {
-      Column(
-          modifier = Modifier.fillMaxWidth().padding(16.dp),
-          horizontalAlignment = Alignment.CenterHorizontally,
-          verticalArrangement = Arrangement.spacedBy(16.dp),
-      ) {
-        Text(text = stringResource(R.string.photo_captured))
+    Dialog(onDismissRequest = onDismiss) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth(0.9f)
+                .wrapContentHeight(),
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                Text(text = stringResource(R.string.photo_captured))
 
-        Image(
-            bitmap = photo.asImageBitmap(),
-            contentDescription = stringResource(R.string.captured_photo),
-            modifier = Modifier.fillMaxWidth().height(300.dp),
-        )
+                Image(
+                    bitmap = photo.asImageBitmap(),
+                    contentDescription = stringResource(R.string.captured_photo),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp),
+                )
 
-        Button(onClick = { onShare(photo) }, modifier = Modifier.fillMaxWidth()) {
-          Text(stringResource(R.string.share))
+                Button(onClick = { onShare(photo) }, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.share))
+                }
+            }
         }
-      }
     }
-  }
 }
