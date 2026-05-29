@@ -31,6 +31,7 @@ import com.meta.wearable.dat.core.Wearables
 import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
 import br.ufg.akcit.smartglasses.ui.MainContainer
+import br.ufg.akcit.smartglasses.ui.theme.SmartGlassesTheme
 import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 import kotlin.coroutines.resume
 import kotlinx.coroutines.CancellableContinuation
@@ -81,10 +82,12 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContent {
-      MainContainer(
+      SmartGlassesTheme {
+        MainContainer(
           viewModel = viewModel,
           onRequestWearablesPermission = ::requestWearablesPermission,
-      )
+        )
+      }
     }
   }
 

@@ -128,7 +128,7 @@ fun MockDeviceKitScreen(
                         modifier = Modifier.fillMaxWidth(),
                         text = stringResource(R.string.disable_mock_device_kit),
                         onClick = { viewModel.disable() },
-                        containerColor = AppColor.Red,
+                        containerColor = MaterialTheme.colorScheme.error,
                     )
                 } else {
                     ActionButton(
@@ -164,7 +164,7 @@ private fun ActionButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    containerColor: Color = AppColor.DeepBlue,
+    containerColor: Color = MaterialTheme.colorScheme.primary,
     contentColor: Color = Color.White,
 ) {
     Button(
@@ -256,7 +256,7 @@ private fun MockDeviceCard(
                     onClick = { viewModel.unpairDevice(deviceInfo) },
                     colors =
                         ButtonDefaults.buttonColors(
-                            containerColor = AppColor.Red,
+                            containerColor = MaterialTheme.colorScheme.error,
                             contentColor = Color.White,
                         ),
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp),

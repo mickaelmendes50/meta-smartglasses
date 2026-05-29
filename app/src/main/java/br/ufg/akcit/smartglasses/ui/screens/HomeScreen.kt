@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -75,7 +76,7 @@ fun HomeScreen(
             Icon(
                 painter = painterResource(id = R.drawable.camera_access_icon),
                 contentDescription = stringResource(R.string.camera_access_icon_description),
-                tint = AppColor.DeepBlue,
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(80.dp * LocalDensity.current.density),
             )
             Column(

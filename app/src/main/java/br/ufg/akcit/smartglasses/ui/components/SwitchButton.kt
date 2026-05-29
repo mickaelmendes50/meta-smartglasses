@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -35,10 +36,10 @@ fun SwitchButton(
         colors =
             ButtonDefaults.buttonColors(
                 containerColor =
-                    if (isDestructive) AppColor.DestructiveBackground else AppColor.DeepBlue,
+                    if (isDestructive) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primary,
                 disabledContainerColor = Color.Gray,
                 disabledContentColor = Color.DarkGray,
-                contentColor = if (isDestructive) AppColor.DestructiveForeground else Color.White,
+                contentColor = if (isDestructive) MaterialTheme.colorScheme.onErrorContainer else Color.White,
             ),
         enabled = enabled,
     ) {
