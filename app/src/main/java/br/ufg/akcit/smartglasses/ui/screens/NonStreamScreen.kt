@@ -61,13 +61,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import br.ufg.akcit.smartglasses.R
+import br.ufg.akcit.smartglasses.ui.components.SwitchButton
+import br.ufg.akcit.smartglasses.ui.theme.AppColor
+import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
 import com.meta.wearable.dat.core.types.RegistrationState
-import br.ufg.akcit.smartglasses.R
-import br.ufg.akcit.smartglasses.ui.theme.AppColor
-import br.ufg.akcit.smartglasses.ui.components.SwitchButton
-import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 import kotlinx.coroutines.launch
 
 private val UpdateRequiredBackground = Color(0xFFFFF4D6)
@@ -78,6 +79,7 @@ private val UpdateRequiredForeground = Color(0xFF8A4B00)
 fun NonStreamScreen(
     viewModel: WearablesViewModel,
     onRequestWearablesPermission: suspend (Permission) -> PermissionStatus,
+    navController: NavController,
     modifier: Modifier = Modifier,
 ) {
   val uiState by viewModel.uiState.collectAsStateWithLifecycle()
