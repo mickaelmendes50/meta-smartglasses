@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package br.ufg.akcit.smartglasses.ui
+package br.ufg.akcit.smartglasses.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope

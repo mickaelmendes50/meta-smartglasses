@@ -40,9 +40,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.meta.wearable.dat.camera.types.StreamState
 import br.ufg.akcit.smartglasses.R
 import br.ufg.akcit.smartglasses.stream.StreamViewModel
-import br.ufg.akcit.smartglasses.ui.CaptureButton
-import br.ufg.akcit.smartglasses.ui.SharePhotoDialog
-import br.ufg.akcit.smartglasses.ui.SwitchButton
+import br.ufg.akcit.smartglasses.ui.components.CaptureButton
+import br.ufg.akcit.smartglasses.ui.components.SharePhotoDialog
+import br.ufg.akcit.smartglasses.ui.components.SwitchButton
 import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 
 @Composable

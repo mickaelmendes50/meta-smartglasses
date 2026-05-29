@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.ufg.akcit.smartglasses.R
 import br.ufg.akcit.smartglasses.ui.AppColor
-import br.ufg.akcit.smartglasses.ui.SwitchButton
+import br.ufg.akcit.smartglasses.ui.components.SwitchButton
 import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 
 @Composable

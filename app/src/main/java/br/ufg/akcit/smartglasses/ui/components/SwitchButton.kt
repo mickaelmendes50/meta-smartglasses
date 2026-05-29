@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package br.ufg.akcit.smartglasses.ui
+package br.ufg.akcit.smartglasses.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import br.ufg.akcit.smartglasses.ui.AppColor
 
 @Composable
 fun SwitchButton(
