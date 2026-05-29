@@ -10,7 +10,7 @@
 //
 // This data class manages UI state for camera streaming operations using the DAT API.
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.stream
+package br.ufg.akcit.smartglasses.stream
 
 import android.graphics.Bitmap
 import com.meta.wearable.dat.camera.types.StreamState

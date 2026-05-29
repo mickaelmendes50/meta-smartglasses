@@ -10,7 +10,7 @@
 //
 // This data class aggregates DAT API state for the UI layer
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.wearables
+package br.ufg.akcit.smartglasses.wearables
 
 import com.meta.wearable.dat.core.types.DeviceIdentifier
 import com.meta.wearable.dat.core.types.RegistrationState

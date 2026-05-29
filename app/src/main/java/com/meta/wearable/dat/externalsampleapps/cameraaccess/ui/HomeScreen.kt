@@ -10,7 +10,7 @@
 //
 // This screen handles DAT device registration.
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.ui
+package br.ufg.akcit.smartglasses.ui
 
 import android.widget.Toast
 import androidx.activity.compose.LocalActivity
@@ -42,8 +42,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.R
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.wearables.WearablesViewModel
+import br.ufg.akcit.smartglasses.R
+import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 
 @Composable
 fun HomeScreen(

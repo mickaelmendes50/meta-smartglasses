@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.ui
+package br.ufg.akcit.smartglasses.ui
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.R
+import br.ufg.akcit.smartglasses.R
 
 @Composable
 fun CircleButton(

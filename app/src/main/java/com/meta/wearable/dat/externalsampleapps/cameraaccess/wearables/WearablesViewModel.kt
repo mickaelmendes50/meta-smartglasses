@@ -14,7 +14,7 @@
 // - Device discovery and state management
 // - Integration with MockDeviceKit for testing
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.wearables
+package br.ufg.akcit.smartglasses.wearables
 
 import android.app.Activity
 import android.app.Application

@@ -11,7 +11,7 @@
 // This composable demonstrates the main streaming UI for DAT camera functionality. It shows how to
 // display live video from wearable devices and handle photo capture.
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.ui
+package br.ufg.akcit.smartglasses.ui
 
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
@@ -38,9 +38,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.meta.wearable.dat.camera.types.StreamState
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.R
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.stream.StreamViewModel
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.wearables.WearablesViewModel
+import br.ufg.akcit.smartglasses.R
+import br.ufg.akcit.smartglasses.stream.StreamViewModel
+import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 
 @Composable
 fun StreamScreen(

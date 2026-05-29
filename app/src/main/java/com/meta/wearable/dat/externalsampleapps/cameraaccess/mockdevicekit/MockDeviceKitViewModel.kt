@@ -11,7 +11,7 @@
 // This ViewModel demonstrates the MockDeviceKit testing framework provided by the DAT SDK.
 // MockDeviceKit allows developers to test DAT applications without physical wearable devices.
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.mockdevicekit
+package br.ufg.akcit.smartglasses.mockdevicekit
 
 import android.app.Application
 import android.net.Uri

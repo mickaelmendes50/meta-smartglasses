@@ -20,7 +20,7 @@
 // - hasCapturedImage: Whether mock photo content has been configured
 // - cameraSource: Which phone camera is being used as the source, if any
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.mockdevicekit
+package br.ufg.akcit.smartglasses.mockdevicekit
 
 import com.meta.wearable.dat.mockdevice.api.MockRaybanMeta
 import com.meta.wearable.dat.mockdevice.api.camera.CameraFacing

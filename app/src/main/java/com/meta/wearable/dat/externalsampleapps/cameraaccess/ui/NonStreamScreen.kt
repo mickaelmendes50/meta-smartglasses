@@ -11,7 +11,7 @@
 // This screen demonstrates DAT device management and pre-streaming setup. It handles device
 // registration status, camera permissions, and stream readiness.
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.ui
+package br.ufg.akcit.smartglasses.ui
 
 import android.widget.Toast
 import androidx.activity.compose.LocalActivity
@@ -64,8 +64,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
 import com.meta.wearable.dat.core.types.RegistrationState
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.R
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.wearables.WearablesViewModel
+import br.ufg.akcit.smartglasses.R
+import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 import kotlinx.coroutines.launch
 
 private val UpdateRequiredBackground = Color(0xFFFFF4D6)

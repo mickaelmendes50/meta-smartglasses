@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.ui
+package br.ufg.akcit.smartglasses.ui
 
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.R
+import br.ufg.akcit.smartglasses.R
 
 @Composable
 fun SharePhotoDialog(photo: Bitmap, onDismiss: () -> Unit, onShare: (Bitmap) -> Unit) {

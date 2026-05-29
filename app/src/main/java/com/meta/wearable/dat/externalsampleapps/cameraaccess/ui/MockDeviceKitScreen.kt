@@ -11,7 +11,7 @@
 // This screen allows developers to simulate wearable devices and test DAT functionality without
 // hardware.
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.ui
+package br.ufg.akcit.smartglasses.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -66,9 +66,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.R
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.mockdevicekit.MockDeviceInfo
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.mockdevicekit.MockDeviceKitViewModel
+import br.ufg.akcit.smartglasses.R
+import br.ufg.akcit.smartglasses.mockdevicekit.MockDeviceInfo
+import br.ufg.akcit.smartglasses.mockdevicekit.MockDeviceKitViewModel
 import com.meta.wearable.dat.mockdevice.api.camera.CameraFacing
 
 @Composable

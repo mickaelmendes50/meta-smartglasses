@@ -15,7 +15,7 @@
 // - Request camera permissions from wearable devices (Ray-Ban Meta glasses)
 // - Stream video and capture photos from connected wearable devices
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess
+package br.ufg.akcit.smartglasses
 
 import android.Manifest.permission.BLUETOOTH
 import android.Manifest.permission.BLUETOOTH_CONNECT
@@ -30,8 +30,8 @@ import androidx.activity.viewModels
 import com.meta.wearable.dat.core.Wearables
 import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.ui.CameraAccessScaffold
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.wearables.WearablesViewModel
+import br.ufg.akcit.smartglasses.ui.CameraAccessScaffold
+import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 import kotlin.coroutines.resume
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine

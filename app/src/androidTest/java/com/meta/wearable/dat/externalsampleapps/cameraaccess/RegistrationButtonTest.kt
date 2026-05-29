@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess
+package br.ufg.akcit.smartglasses
 
 import android.util.Log
 import androidx.compose.ui.test.junit4.createAndroidComposeRule

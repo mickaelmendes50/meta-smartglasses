@@ -22,7 +22,7 @@
 // The scaffold also provides a debug menu (in DEBUG builds) that gives access to
 // MockDeviceKitScreen for testing DAT functionality without physical devices.
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.ui
+package br.ufg.akcit.smartglasses.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -56,8 +56,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.meta.wearable.dat.core.types.Permission
 import com.meta.wearable.dat.core.types.PermissionStatus
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.BuildConfig
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.wearables.WearablesViewModel
+import br.ufg.akcit.smartglasses.BuildConfig
+import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

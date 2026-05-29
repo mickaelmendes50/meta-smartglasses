@@ -13,13 +13,13 @@ plugins {
 }
 
 android {
-  namespace = "com.meta.wearable.dat.externalsampleapps.cameraaccess"
+  namespace = "br.ufg.akcit.smartglasses"
   compileSdk = 35
 
   buildFeatures { buildConfig = true }
 
   defaultConfig {
-    applicationId = "com.meta.wearable.dat.externalsampleapps.cameraaccess"
+    applicationId = "br.ufg.akcit.smartglasses"
     minSdk = 31
     targetSdk = 34
     versionCode = 1

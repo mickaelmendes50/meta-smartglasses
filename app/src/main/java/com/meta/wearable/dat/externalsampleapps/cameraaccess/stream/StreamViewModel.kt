@@ -15,7 +15,7 @@
 // - Handling different video qualities and formats
 // - Processing raw video data (I420 -> ARGB conversion)
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess.stream
+package br.ufg.akcit.smartglasses.stream
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -43,8 +43,8 @@ import com.meta.wearable.dat.core.selectors.DeviceSelector
 import com.meta.wearable.dat.core.session.DeviceSession
 import com.meta.wearable.dat.core.session.DeviceSessionState
 import com.meta.wearable.dat.core.types.DeviceSessionError
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.R
-import com.meta.wearable.dat.externalsampleapps.cameraaccess.wearables.WearablesViewModel
+import br.ufg.akcit.smartglasses.R
+import br.ufg.akcit.smartglasses.wearables.WearablesViewModel
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.FileOutputStream

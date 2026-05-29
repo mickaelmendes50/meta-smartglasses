@@ -17,7 +17,7 @@
 // 3. Permission checking workflow with MockDeviceKit (auto-grants permissions)
 // 4. Complete streaming workflow from device setup to video display
 
-package com.meta.wearable.dat.externalsampleapps.cameraaccess
+package br.ufg.akcit.smartglasses
 
 import android.content.Context
 import android.net.Uri
